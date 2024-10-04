@@ -13,6 +13,7 @@ buitd code:
 - install sdcc as package or download the archive from their site
 - set path in makefile (only for archive) in variable CC
 - open a terminal in the same directory and type make all
+- executables are created in "build" directory
 
 upload code to board:
 - get nvtispflash: https://github.com/frank-zago/nvtispflash
