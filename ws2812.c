@@ -44,6 +44,7 @@ const uint8_t gamma_table[WS_BRIGH_SIZE] = {
 };
 
 const ws_color_type ws_colors[WS_COL_SIZE]={
+/*R G B*/
 {255,0,0},
 {255,50,0},
 {255,100,0},
@@ -55,10 +56,10 @@ const ws_color_type ws_colors[WS_COL_SIZE]={
 {0,255,150},
 {0,255,200},
 {0,0,255},
-{50,0,255},
 {100,0,255},
 {150,0,255},
-{200,0,255},
+{200,0,200},
+{255,0,200},
 {255,230,230},
 {0,0,0},
 };
