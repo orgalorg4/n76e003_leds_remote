@@ -150,12 +150,12 @@ void outmux_set_ws_colour(ws_colorIndex_type col)
 			if(col == WS_COL_NEXT)
 			{
 				ilum_data.ws.colInd++;
-				if(ilum_data.ws.colInd >= WS_COL_SIZE) ilum_data.ws.colInd = 0;
+				if(ilum_data.ws.colInd > WS_WHITE) ilum_data.ws.colInd = 0;
 			}
 			if(col == WS_COL_PREV)
 			{
 				ilum_data.ws.colInd--;
-				if(ilum_data.ws.colInd >= WS_COL_SIZE) ilum_data.ws.colInd = WS_COL_SIZE-1;
+				if(ilum_data.ws.colInd > WS_WHITE) ilum_data.ws.colInd = WS_WHITE;
 			}
 		}
 		if(col < WS_COL_SIZE)

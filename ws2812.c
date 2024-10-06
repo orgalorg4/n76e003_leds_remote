@@ -60,6 +60,7 @@ const ws_color_type ws_colors[WS_COL_SIZE]={
 {150,0,255},
 {200,0,255},
 {255,230,230},
+{0,0,0},
 };
 
 //ws2812

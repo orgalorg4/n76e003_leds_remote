@@ -17,7 +17,7 @@ SRC8 = outmux
 
 CC = sdcc
 
-FLASHER = /mnt/BarraCuda/3_workspaces/8051/nvtispflash/nvtispflash
+FLASHER = /mnt/Team/3_workspaces/8051/nvtispflash/nvtispflash
 
 all: $(OUTDIR)$(FILE).bin
 

@@ -16,7 +16,7 @@ used the voltage value to light some leds to indicate battery charge state
 
 __xdata static uint16_t Bandgap_Voltage,VDD_Voltage;
 
-__xdata static ws_colorIndex_type array2[8];
+__xdata static ws_colorIndex_type array2[16];
 
 /* voltage steps for show state
 	35 = 3.5 vols
@@ -80,6 +80,11 @@ void battery_showstate()
 		{
 			array2[i] = WS_RED_0;
 		}
+	}
+	while(i<16)
+	{
+		array2[i]=WS_OFF;
+		i++;
 	}
 	ws_array(array2,0);
 }

@@ -111,7 +111,9 @@ void main() {
 	SET_FIELD(T3CON, TR3, 1);	//timer 3 start
 
 //pin states
+#if(DEBUG == 1)
 	P12 = 1;	//D2 off - do remove
+#endif
 
 	P14 = 0;
 outmux_pwm_init();

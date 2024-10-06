@@ -178,6 +178,7 @@ void ir_mainfunction(power_state_type *power)
 					outmux_set_bright(WS_BRIGH_MINUS);
 					break;
 				}
+/*
 				case NEC_R1_EQ:
 				{
 					uint8_t i;
@@ -191,6 +192,7 @@ void ir_mainfunction(power_state_type *power)
 					ws_array(array,0);
 					break;
 				}
+*/
 				case NEC_R1_NEXT:
 				{
 					outmux_set_ws_colour(WS_COL_NEXT);

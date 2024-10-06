@@ -1,4 +1,4 @@
- /*
+/*
 a whole mess of data types and function prototipes to be used in multiple files
 */
 
@@ -31,6 +31,7 @@ WS_BLUE_2,
 WS_BLUE_3,
 WS_BLUE_4,
 WS_WHITE,
+WS_OFF,
 WS_COL_SIZE,
 WS_COL_NEXT,
 WS_COL_PREV,
