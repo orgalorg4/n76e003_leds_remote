@@ -1,4 +1,4 @@
-/*
+ /*
 a whole mess of data types and function prototipes to be used in multiple files
 */
 
