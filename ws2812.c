@@ -28,19 +28,22 @@ power on/off for the ws array using P-channel mosfet
 
 /* 16-step brightness table: gamma = 2.1 */
 const uint8_t gamma_table[WS_BRIGH_SIZE] = {
-  9,
-  16,
-  25,
-  37,
-  51,
-  68,
-  87,
-  109,
-  133,
-  160,
-  189,
-  221,
-/*  255,*/
+	10,
+	15,
+	23,
+	31,
+	41,
+	53,
+	66,
+	81,
+	97,
+	115,
+	134,
+	155,
+	178,
+	202,
+	228,
+	255,
 };
 
 const ws_color_type ws_colors[WS_COL_SIZE]={

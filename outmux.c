@@ -15,10 +15,22 @@ WS usb define left unused - can be used to add code for another ws output
 #define PWM_PERIOD 2000//255		//500hz freq
 #define PWM_DUTY_MAX PWM_PERIOD 
 
+typedef enum{
+	PWM_SHOW_NONE,
+	PWM_SHOW_INIT_1,
+	PWM_SHOW_INIT_2,
+	PWM_SHOW_SHOW,
+	PWM_SHOW_WAIT,
+	PWM_SHOW_OFF,
+}ws_show_pwm_type;
 
 __xdata static ilum_data_type ilum_data, ilum_data_old;
 
 __xdata static uint8_t outmux_initdone = 0;
+
+__xdata static ws_show_pwm_type ws_show_pwm_state = PWM_SHOW_NONE;
+__xdata static uint8_t ws_show_pwm_count = 0;
+__xdata static ws_colorIndex_type array3[16];
 
 //pwm1 on pin 1.1
 void outmux_pwm_init()
@@ -106,7 +118,7 @@ void outmux_set_bright(uint8_t br)
 				if(br == WS_BRIGH_PLUS)
 				{
 					ilum_data.ws.brigInd++;
-					if(ilum_data.ws.brigInd >= WS_BRIGH_SIZE){ilum_data.ws.brigInd = WS_BRIGH_SIZE-1;}
+					if(ilum_data.ws.brigInd > WS_BRIGH_LIMIT){ilum_data.ws.brigInd = WS_BRIGH_LIMIT;}
 				}
 				if(br == WS_BRIGH_MINUS)
 				{
@@ -116,10 +128,18 @@ void outmux_set_bright(uint8_t br)
 			}
 			if(br < WS_BRIGH_SIZE)
 			{
-				ilum_data.ws.brigInd = br;
+				if(br > WS_BRIGH_LIMIT)
+				{
+					ilum_data.ws.brigInd = WS_BRIGH_LIMIT;
+				}
+				else
+				{
+					ilum_data.ws.brigInd = br;
+				}
 			}
 			break;
 		case OUTMUX_PWM_USB:
+			ws_show_pwm_state = PWM_SHOW_INIT_1;
 			if(br > WS_BRIGH_SIZE)
 			{
 				if(br == WS_BRIGH_PLUS)
@@ -170,6 +190,7 @@ void outmux_mainfunction(power_state_type *power)
 	// delay after power on ws before write data - just use for all outputs
 	static uint8_t delay_counter;
 	static uint8_t output_change = 0;
+	uint8_t i;
 	if(ilum_data_old.outmux_out != ilum_data.outmux_out)
 	{
 		ilum_data_old.outmux_out = ilum_data.outmux_out;
@@ -235,6 +256,42 @@ void outmux_mainfunction(power_state_type *power)
 		}
 	}
 	
+	switch(ws_show_pwm_state)
+	{
+		case PWM_SHOW_INIT_1:
+			ws_power(1);
+			ws_show_pwm_count = 5;
+			ws_show_pwm_state = PWM_SHOW_INIT_2;
+			break;
+		case PWM_SHOW_INIT_2:
+			ws_show_pwm_count--;
+			if(ws_show_pwm_count == 0)
+				ws_show_pwm_state = PWM_SHOW_SHOW;
+			break;
+		case PWM_SHOW_SHOW:
+			for(i=0;i<ilum_data.pwm/2+1;i++)
+			{
+				array3[i] = WS_RED_4;
+			}
+			for(i;i<16;i++)
+			{
+				array3[i] = WS_OFF;
+			}
+			ws_array(array3,0);
+			ws_show_pwm_count = 100;
+			ws_show_pwm_state = PWM_SHOW_WAIT;
+			break;
+		case PWM_SHOW_WAIT:
+			ws_show_pwm_count--;
+			if(ws_show_pwm_count == 0)
+				ws_show_pwm_state = PWM_SHOW_OFF;
+			break;
+		case PWM_SHOW_OFF:
+			ws_power(0);
+			ws_show_pwm_state = PWM_SHOW_NONE;
+			break;
+	}
+	
 	if(*power == PRE_OFF)
 	{
 		if(outmux_initdone == 1)
@@ -243,6 +300,7 @@ void outmux_mainfunction(power_state_type *power)
 			eeprom_write_data(&ilum_data_old);
 			outmux_initdone = 0;
 		}
+		ws_show_pwm_state = PWM_SHOW_NONE;
 		ws_power(0);
 		PWM1H = 0x0;
 		PWM1L = 0x0;

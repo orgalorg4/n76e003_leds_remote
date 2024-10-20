@@ -9,7 +9,8 @@ a whole mess of data types and function prototipes to be used in multiple files
 #include <n76e003.h>
 
 //ws2812
-#define WS_BRIGH_SIZE 12
+#define WS_BRIGH_SIZE 16	//size of brightness array in ws2812.c
+#define WS_BRIGH_LIMIT 13	//index of the max brightness of ws - from gamma table
 //brightness increase/decrease
 #define WS_BRIGH_PLUS (WS_BRIGH_SIZE + 1)
 #define WS_BRIGH_MINUS (WS_BRIGH_SIZE + 2)

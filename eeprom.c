@@ -28,7 +28,7 @@ use multiple of 0x80 to use a page.
 last page starts at 3E00
 0x3000 is close to end on memory 
 */
-#define NVM_START_ADR 0x1600//0x1400
+#define NVM_START_ADR 0x1800//0x1600//0x1400
 /*
 set size of ram array that holds data to be written to nvm
 */
